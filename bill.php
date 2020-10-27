@@ -79,7 +79,7 @@ function save_bill()
     $now        = date("Y-m-d H:i:s");
 
     $sql = "INSERT INTO `bill` (`user_sn`, `bill_total`, `bill_date`) VALUES ('{$_SESSION['user_sn']}', '{$bill_total}', '{$now}')";
-    $mysqli->query($sql) or die($mysqli->connect_error);
+    $mysqli->query($sql);
     $bill_sn = $mysqli->insert_id;
 
     foreach ($_POST['goods_amount'] as $goods_sn => $goods_amount) {
@@ -106,7 +106,7 @@ function display_bill($bill_sn)
     $sql = "SELECT a.* , b.* FROM `bill_detail` AS a
     LEFT JOIN `goods` AS b on a.`goods_sn`=b.`goods_sn`
     WHERE a.`bill_sn`='{$bill_sn}'";
-    $result = $mysqli->query($sql) or die($mysqli->connect_error);
+    $result = $mysqli->query($sql);
     while ($all = $result->fetch_assoc()) {
         $bill_detail[] = $all;
     }
@@ -137,10 +137,11 @@ function list_bill($user_sn = "")
     }
     $user_sn  = $isAdmin ? $user_sn : $_SESSION['user_sn'];
     $sql      = "SELECT * FROM `bill` WHERE `user_sn`='{$user_sn}' order by `bill_date` desc";
-    $result   = $mysqli->query($sql) or die($mysqli->connect_error);
-    $bill_arr = "";
+    $result   = $mysqli->query($sql);
+    $bill_arr = " ";
     while ($all = $result->fetch_assoc()) {
-        $bill_arr[] = $all;
+        // echo $bill_arr[]  = $all;
+        echo $bill_arr;
     }
     $smarty->assign('bill_arr', $bill_arr);
 
