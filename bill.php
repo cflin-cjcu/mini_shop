@@ -141,8 +141,8 @@ function list_bill($user_sn = "")
     // $bill_arr = " ";
 
     while ($all = $result->fetch_assoc()) { 
-        echo $all;
-        echo $bill_arr[]  = $all;
+        // echo $all;
+       $bill_arr[]  = $all;
     }
     $smarty->assign('bill_arr', $bill_arr);
 
